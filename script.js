@@ -21,7 +21,9 @@ function displayLibrary(myLibrary) {
 
 const bookDisplayContainer = document.querySelector(".bookTable");
 
+//displays the book and gives it a delete button
 function displayBook(book) {
+  //Adds a line for the book
   const tableBookRow = document.createElement("tr");
   Object.keys(book).forEach((key) => {
     const tableBookData = document.createElement("td");
@@ -30,24 +32,39 @@ function displayBook(book) {
   });
 
 
-  //gives each book an id on the DOM
+  //gives each book an id on the DOM(the same as the book on the backend)
   tableBookRow.setAttribute('data-id', book.id);
   
   //adds an delete button with the same id
-  tdDelButton = document.createElement("td");
-  delButton = document.createElement("button");
+  const tdDelButton = document.createElement("td");
+  const delButton = document.createElement("button");
   delButton.setAttribute('data-id', book.id);
   delButton.textContent = "Deletar";
+  //adds del button functionality
+  delButton.addEventListener("click", (e)=>{
+    console.log(delButton);
+    buttonId = delButton.getAttribute("data-id");
+    console.log(buttonId);
+    myLibrary.forEach(book =>{
+      
+      if(book.id == buttonId){
+        //if it finds, than that book must be deleted
+        bookToBeDeleted = document.querySelector(`tr[data-id="${book.id}"]`)  
+        bookToBeDeleted.remove();
+      }
+    })
+  })
+  //Alocate correct position
   tdDelButton.appendChild(delButton)
   tableBookRow.appendChild(tdDelButton);
   bookDisplayContainer.appendChild(tableBookRow);
 }
 
 //Get initial Values
-addBookToLibrary("chihiro", "Cleber Miyazaki", 32, true);
-displayLibrary(myLibrary);
-console.log(myLibrary);
-deleteButtons = document.querySelectorAll("button[data-id]");
+// addBookToLibrary("chihiro", "Cleber Miyazaki", 32, true);
+// displayLibrary(myLibrary);
+// console.log(myLibrary);
+// deleteButtons = document.querySelectorAll("button[data-id]");
 
 //Show modal logic
 const modal = document.querySelector(".modal");
@@ -67,28 +84,8 @@ sendDataButton.addEventListener("click", (e) =>{
   e.preventDefault();
   addBookToLibrary(nameInput.value, authorInput.value, numberOfPagesInput.value, readInput.checked);
   displayBook(myLibrary[myLibrary.length-1]);
-  deleteButtons = document.querySelectorAll("button[data-id]");
-
-  console.log(deleteButtons);
 
   modal.close();
 })
 
-//Delete button logic
-deleteButtons.forEach(button => {
-  button.addEventListener("click", (e)=>{
-    buttonId = button.getAttribute("data-id");
-    console.log(buttonId);
-    myLibrary.forEach(book =>{
-      
-      if(book.id == buttonId){
-        //if it finds, than that book must be deleted
-        console.log("FOUND");
-        bookToBeDeleted = document.querySelector(`tr[data-id="${book.id}"]`)  
-        bookToBeDeleted.remove();
-      }
-    })
-  })
-  
-});
 
