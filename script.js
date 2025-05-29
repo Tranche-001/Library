@@ -42,6 +42,18 @@ showButton.addEventListener("click", () => {
   modal.showModal();
 });
 
-modal.addEventListener("close", (e) => {
-  
+// Form Button Logic
+// Send the data from the form to the table
+const sendDataButton = document.querySelector("#close");
+const authorInput = document.querySelector("#author")
+const nameInput = document.querySelector("#name")
+const numberOfPagesInput = document.querySelector("#numberOfPages")
+const readInput = document.querySelector("#read")
+sendDataButton.addEventListener("click", (e) =>{
+  e.preventDefault();
+  addBookToLibrary(nameInput.value, authorInput.value, numberOfPagesInput.value, readInput.checked);
+  displayBook(myLibrary[myLibrary.length-1]);
+  modal.close();
 })
+
+
