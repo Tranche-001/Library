@@ -1,5 +1,6 @@
 html {
   font-family: sans-serif;
+  min-height: 100vh;
 }
 
 table {
@@ -32,4 +33,21 @@ tr:nth-child(odd) td {
 
 caption {
   padding: 10px;
+}
+
+
+button{
+  background-color: #47a386;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 10px 25px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+
+.modal{
+  background-color: white;
 }

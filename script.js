@@ -1,6 +1,6 @@
 const myLibrary = [];
 
-function Book(name, author, numOfPages, read){
+function Book(name, author, numOfPages, read) {
   this.id = crypto.randomUUID();
   this.name = name;
   this.author = author;
@@ -14,23 +14,34 @@ function addBookToLibrary(name, author, numOfPages, read) {
 }
 
 function displayLibrary(myLibrary) {
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book) => {
     displayBook(book);
   });
 }
 
-const bookDisplayContainer = document.querySelector(".bookTable")
+const bookDisplayContainer = document.querySelector(".bookTable");
 
 function displayBook(book) {
   const tableBookRow = document.createElement("tr");
-  Object.keys(book).forEach(key => {
-      const tableBookData = document.createElement("td");
-      tableBookData.textContent = `${book[key]}`
-      tableBookRow.appendChild(tableBookData);
-    });
+  Object.keys(book).forEach((key) => {
+    const tableBookData = document.createElement("td");
+    tableBookData.textContent = `${book[key]}`;
+    tableBookRow.appendChild(tableBookData);
+  });
   bookDisplayContainer.appendChild(tableBookRow);
 }
 
 addBookToLibrary("chihiro", "Cleber Miyazaki", 32, true);
 displayLibrary(myLibrary);
 console.log(myLibrary);
+
+//Show modal logic
+const modal = document.querySelector(".modal");
+const showButton = document.querySelector(".btnNewBook");
+showButton.addEventListener("click", () => {
+  modal.showModal();
+});
+
+modal.addEventListener("close", (e) => {
+  
+})
