@@ -43,9 +43,11 @@ function displayBook(book) {
   bookDisplayContainer.appendChild(tableBookRow);
 }
 
+//Get initial Values
 addBookToLibrary("chihiro", "Cleber Miyazaki", 32, true);
 displayLibrary(myLibrary);
 console.log(myLibrary);
+deleteButtons = document.querySelectorAll("button[data-id]");
 
 //Show modal logic
 const modal = document.querySelector(".modal");
@@ -65,7 +67,7 @@ sendDataButton.addEventListener("click", (e) =>{
   e.preventDefault();
   addBookToLibrary(nameInput.value, authorInput.value, numberOfPagesInput.value, readInput.checked);
   displayBook(myLibrary[myLibrary.length-1]);
-  deleteButtons = document.querySelectorAll("[data-id]");
+  deleteButtons = document.querySelectorAll("button[data-id]");
 
   console.log(deleteButtons);
 
@@ -73,6 +75,20 @@ sendDataButton.addEventListener("click", (e) =>{
 })
 
 //Delete button logic
-console.log(deleteButtons);
-
+deleteButtons.forEach(button => {
+  button.addEventListener("click", (e)=>{
+    buttonId = button.getAttribute("data-id");
+    console.log(buttonId);
+    myLibrary.forEach(book =>{
+      
+      if(book.id == buttonId){
+        //if it finds, than that book must be deleted
+        console.log("FOUND");
+        bookToBeDeleted = document.querySelector(`tr[data-id="${book.id}"]`)  
+        bookToBeDeleted.remove();
+      }
+    })
+  })
+  
+});
 
