@@ -28,6 +28,18 @@ function displayBook(book) {
     tableBookData.textContent = `${book[key]}`;
     tableBookRow.appendChild(tableBookData);
   });
+
+
+  //gives each book an id on the DOM
+  tableBookRow.setAttribute('data-id', book.id);
+  
+  //adds an delete button with the same id
+  tdDelButton = document.createElement("td");
+  delButton = document.createElement("button");
+  delButton.setAttribute('data-id', book.id);
+  delButton.textContent = "Deletar";
+  tdDelButton.appendChild(delButton)
+  tableBookRow.appendChild(tdDelButton);
   bookDisplayContainer.appendChild(tableBookRow);
 }
 
@@ -53,7 +65,14 @@ sendDataButton.addEventListener("click", (e) =>{
   e.preventDefault();
   addBookToLibrary(nameInput.value, authorInput.value, numberOfPagesInput.value, readInput.checked);
   displayBook(myLibrary[myLibrary.length-1]);
+  deleteButtons = document.querySelectorAll("[data-id]");
+
+  console.log(deleteButtons);
+
   modal.close();
 })
+
+//Delete button logic
+console.log(deleteButtons);
 
 
