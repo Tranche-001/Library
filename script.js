@@ -1,10 +1,10 @@
 const myLibrary = [];
 
-const bookPrototype ={
-  toggleRead(){
+const bookPrototype = {
+  toggleRead() {
     this.read = !this.read;
-  }
-}
+  },
+};
 
 function Book(name, author, numOfPages, read) {
   this.id = crypto.randomUUID();
@@ -15,7 +15,6 @@ function Book(name, author, numOfPages, read) {
 }
 
 Object.assign(Book.prototype, bookPrototype);
-
 
 function addBookToLibrary(name, author, numOfPages, read) {
   const book = new Book(name, author, numOfPages, read);
@@ -40,66 +39,59 @@ function displayBook(book) {
     tableBookRow.appendChild(tableBookData);
   });
 
-
   //gives each book an id on the DOM(the same as the book on the backend)
-  tableBookRow.setAttribute('data-id', book.id);
-  
+  tableBookRow.setAttribute("data-id", book.id);
+  addDeleteButton(tableBookRow, book);
+  addToggleButton(tableBookRow, book);
+}
+
+function addDeleteButton(tableBookRow, book) {
   //adds an delete button with the same id
   const tdDelButton = document.createElement("td");
   const delButton = document.createElement("button");
-  delButton.setAttribute('data-id', book.id);
+  delButton.setAttribute("data-id", book.id);
   delButton.textContent = "Deletar";
   //adds del button functionality
-  delButton.addEventListener("click", (e)=>{
+  delButton.addEventListener("click", (e) => {
     console.log(delButton);
     buttonId = delButton.getAttribute("data-id");
     console.log(buttonId);
-    myLibrary.forEach(book =>{
-      
-      if(book.id == buttonId){
+    myLibrary.forEach((book) => {
+      if (book.id == buttonId) {
         //if it finds, than that book must be deleted
-        bookToBeDeleted = document.querySelector(`tr[data-id="${book.id}"]`)  
+        bookToBeDeleted = document.querySelector(`tr[data-id="${book.id}"]`);
         bookToBeDeleted.remove();
       }
-    })
-  })
+    });
+  });
   //Alocate correct position
-  tdDelButton.appendChild(delButton)
+  tdDelButton.appendChild(delButton);
   tableBookRow.appendChild(tdDelButton);
   bookDisplayContainer.appendChild(tableBookRow);
+}
 
-
+function addToggleButton(tableBookRow, book) {
   //Adds a toggle button
   const tdToggleButton = document.createElement("td");
   const toggleButton = document.createElement("button");
-  toggleButton.setAttribute('data-id', book.id);
+  toggleButton.setAttribute("data-id", book.id);
   toggleButton.textContent = "Toggle";
 
-
-   //adds toggle button functionality
-  toggleButton.addEventListener("click", (e)=>{
+  //adds toggle button functionality
+  toggleButton.addEventListener("click", (e) => {
     buttonId = toggleButton.getAttribute("data-id");
-    myLibrary.forEach(book =>{
-      
-      if(book.id == buttonId){
+    myLibrary.forEach((book) => {
+      if (book.id == buttonId) {
         book.toggleRead();
-        tableBookRow.children[4].textContent = `${book["read"]}`
+        tableBookRow.children[4].textContent = `${book["read"]}`;
       }
-    })
-  })
-
-
+    });
+  });
 
   //Alocate correct position
-  tdToggleButton.appendChild(toggleButton)
+  tdToggleButton.appendChild(toggleButton);
   tableBookRow.appendChild(tdToggleButton);
   bookDisplayContainer.appendChild(tableBookRow);
-
-}
-
-
-function addToggleButton(){
-  
 }
 
 //Show modal logic
@@ -112,16 +104,19 @@ showButton.addEventListener("click", () => {
 // Form Button Logic
 // Send the data from the form to the table
 const sendDataButton = document.querySelector("#close");
-const authorInput = document.querySelector("#author")
-const nameInput = document.querySelector("#name")
-const numberOfPagesInput = document.querySelector("#numberOfPages")
-const readInput = document.querySelector("#read")
-sendDataButton.addEventListener("click", (e) =>{
+const authorInput = document.querySelector("#author");
+const nameInput = document.querySelector("#name");
+const numberOfPagesInput = document.querySelector("#numberOfPages");
+const readInput = document.querySelector("#read");
+sendDataButton.addEventListener("click", (e) => {
   e.preventDefault();
-  addBookToLibrary(nameInput.value, authorInput.value, numberOfPagesInput.value, readInput.checked);
-  displayBook(myLibrary[myLibrary.length-1]);
+  addBookToLibrary(
+    nameInput.value,
+    authorInput.value,
+    numberOfPagesInput.value,
+    readInput.checked
+  );
+  displayBook(myLibrary[myLibrary.length - 1]);
 
   modal.close();
-})
-
-
+});
