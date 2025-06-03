@@ -1,5 +1,11 @@
 const myLibrary = [];
 
+const bookPrototype ={
+  toggleRead(){
+    this.read = !this.read;
+  }
+}
+
 function Book(name, author, numOfPages, read) {
   this.id = crypto.randomUUID();
   this.name = name;
@@ -7,6 +13,9 @@ function Book(name, author, numOfPages, read) {
   this.numOfPages = numOfPages;
   this.read = read;
 }
+
+Object.assign(Book.prototype, bookPrototype);
+
 
 function addBookToLibrary(name, author, numOfPages, read) {
   const book = new Book(name, author, numOfPages, read);
@@ -59,12 +68,6 @@ function displayBook(book) {
   tableBookRow.appendChild(tdDelButton);
   bookDisplayContainer.appendChild(tableBookRow);
 }
-
-//Get initial Values
-// addBookToLibrary("chihiro", "Cleber Miyazaki", 32, true);
-// displayLibrary(myLibrary);
-// console.log(myLibrary);
-// deleteButtons = document.querySelectorAll("button[data-id]");
 
 //Show modal logic
 const modal = document.querySelector(".modal");
