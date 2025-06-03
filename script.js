@@ -30,7 +30,7 @@ function displayLibrary(myLibrary) {
 
 const bookDisplayContainer = document.querySelector(".bookTable");
 
-//displays the book and gives it a delete button
+//displays the book and gives it a delete button and a toggle button
 function displayBook(book) {
   //Adds a line for the book
   const tableBookRow = document.createElement("tr");
@@ -67,6 +67,39 @@ function displayBook(book) {
   tdDelButton.appendChild(delButton)
   tableBookRow.appendChild(tdDelButton);
   bookDisplayContainer.appendChild(tableBookRow);
+
+
+  //Adds a toggle button
+  const tdToggleButton = document.createElement("td");
+  const toggleButton = document.createElement("button");
+  toggleButton.setAttribute('data-id', book.id);
+  toggleButton.textContent = "Toggle";
+
+
+   //adds toggle button functionality
+  toggleButton.addEventListener("click", (e)=>{
+    buttonId = toggleButton.getAttribute("data-id");
+    myLibrary.forEach(book =>{
+      
+      if(book.id == buttonId){
+        book.toggleRead();
+        tableBookRow.children[4].textContent = `${book["read"]}`
+      }
+    })
+  })
+
+
+
+  //Alocate correct position
+  tdToggleButton.appendChild(toggleButton)
+  tableBookRow.appendChild(tdToggleButton);
+  bookDisplayContainer.appendChild(tableBookRow);
+
+}
+
+
+function addToggleButton(){
+  
 }
 
 //Show modal logic
